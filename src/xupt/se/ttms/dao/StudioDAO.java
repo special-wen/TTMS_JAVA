@@ -72,12 +72,14 @@ public class StudioDAO implements iStudioDAO {
 		try{
 			String sql = "delete from  studio ";
 			sql += " where studio_id = " + ID;
+			System.out.println(sql);
 			DBUtil db = new DBUtil();
 			db.openConnection();
 			rtn=db.execCommand(sql);
 			db.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		}
 		return rtn;		
 	}

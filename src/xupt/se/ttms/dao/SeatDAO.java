@@ -49,7 +49,18 @@ public class SeatDAO implements iSeatDAO{
 	@Override
 	public int delete(int ID) {
 		// TODO Auto-generated method stub
-		return 0;
+		int rtn=0;		
+		try{
+			String sql = "delete from  seate ";
+			sql += " where studio_id = " + ID;
+			DBUtil db = new DBUtil();
+			db.openConnection();
+			rtn=db.execCommand(sql);
+			db.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rtn;		
 	}
 
 	@Override

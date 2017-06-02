@@ -115,6 +115,11 @@ public class StudioAddUI extends PopUITmpl implements ActionListener {
 			int studio_id = stu.getID();
 			int row = Integer.parseInt(txtRow.getText());
 			int col = Integer.parseInt(txtColumn.getText());
+			Studio studio = new Studio();
+			studio.setRowCount(row);
+			studio.setColCount(col);
+			studio.setID(studio_id);
+			
 			//获取添加的演出厅id和演出厅中座位的行值列值
 			Seat seat1;
 			SeatSrv seatSrv = new SeatSrv();

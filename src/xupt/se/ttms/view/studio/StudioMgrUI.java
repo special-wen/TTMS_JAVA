@@ -26,7 +26,9 @@ import java.util.Iterator;
 import xupt.se.ttms.model.Studio;
 import xupt.se.ttms.service.StudioSrv;
 import xupt.se.ttms.view.tmpl.*;
-
+import xupt.se.ttms.view.seat.*;
+/*import xupt.se.ttms.model.Seat;
+import xupt.se.ttms.service.SeatSrv;*/
 class StudioTable {
 	/**
 	 * 
@@ -36,6 +38,7 @@ class StudioTable {
 
 	public StudioTable(JScrollPane jp) {
 		
+		//设置单元格不可修改
 		DefaultTableModel tabModel=new DefaultTableModel(){
 			private static final long serialVersionUID = 1L;
 
@@ -44,6 +47,8 @@ class StudioTable {
 				return false;              
 			};
 		};
+		
+		//增加列名
 		tabModel.addColumn("id");
 		tabModel.addColumn("name");
 		tabModel.addColumn("row");
@@ -113,7 +118,7 @@ class StudioTable {
 				data[2] = Integer.toString(stu.getRowCount());
 				data[3] = Integer.toString(stu.getColCount());
 				data[4] = stu.getIntroduction();
-				tabModel.addRow(data);;
+				tabModel.addRow(data);
 			}
 			jt.invalidate();
 
@@ -136,7 +141,7 @@ public class StudioMgrUI extends MainUITmpl {
 	private JTextField input;
 
 	// 查找，编辑和删除按钮
-	private JButton btnAdd, btnEdit, btnDel, btnQuery;
+	private JButton btnAdd, btnEdit, btnDel, btnQuery,btnSeat;
 	
 	StudioTable tms; //显示演出厅列表
 
@@ -168,7 +173,8 @@ public class StudioMgrUI extends MainUITmpl {
 		input.setBounds(220, rect.height - 45, 200, 30);
 		contPan.add(input);
 
-		// 查找 ，删除和编辑的按钮，其中含有相关的事件处理！
+		// 查找 ，删除，编辑，座位管理的按钮，其中含有相关的事件处理！
+		
 		btnQuery = new JButton("查找");
 		btnQuery.setBounds(440, rect.height - 45, 60, 30);
 		btnQuery.addActionListener(new ActionListener() {
@@ -177,7 +183,19 @@ public class StudioMgrUI extends MainUITmpl {
 			}
 		});
 		contPan.add(btnQuery);
-
+		
+		btnSeat = new JButton("管理座位");
+		btnSeat.setBounds(rect.width -330,rect.height -45, 100,30 );
+		btnSeat.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				btnSeatCliked();
+			}
+		});
+		contPan.add(btnSeat);
+		
 		btnAdd = new JButton("添加");
 		btnAdd.setBounds(rect.width - 220, rect.height - 45, 60, 30);
 		btnAdd.addActionListener(new ActionListener() {
@@ -225,7 +243,20 @@ public class StudioMgrUI extends MainUITmpl {
 			showTable();
 		}
 	}
-
+	private void btnSeatCliked(){
+		Studio stud = tms.getStudio();
+		if (null == stud){
+			JOptionPane.showMessageDialog(null, "请选择要管理座位的演出厅");
+			return;
+		}
+		
+		SeatMgrUI modStuUI = new SeatMgrUI(stud);
+		modStuUI.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		modStuUI.setVisible(true);
+		
+		
+		  
+	}
 	private void btnModClicked() {
 		Studio stud = tms.getStudio();
 		if(null== stud){
@@ -249,6 +280,7 @@ public class StudioMgrUI extends MainUITmpl {
 
 	private void btnDelClicked() {
 		Studio stud = tms.getStudio();
+		
 		if(null== stud){
 			JOptionPane.showMessageDialog(null, "请选择要删除的演出厅");
 			return; 
