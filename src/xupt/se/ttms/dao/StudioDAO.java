@@ -27,7 +27,9 @@ public class StudioDAO implements iStudioDAO {
 					+ stu.getRowCount()
 					+ ", " + stu.getColCount() 
 					+ ", '" + stu.getIntroduction()
+					
 					+ "' )";
+			System.out.println(sql);
 			DBUtil db = new DBUtil();
 			db.openConnection();
 			ResultSet rst = db.getInsertObjectIDs(sql);

@@ -30,6 +30,7 @@ public class MainUITmpl extends JFrame  {
 	private int frmHeight=700;
 	protected ImagePanel headPan = new ImagePanel("resource/image/header.jpg");
 	protected JPanel contPan = new JPanel();
+	protected JPanel jPanel = new JPanel();
 	protected JLabel usrLabel = new JLabel();
 	protected JLabel usrName = new JLabel();
 	protected JButton btnModPwd = new JButton("修改密码");
@@ -53,6 +54,7 @@ public class MainUITmpl extends JFrame  {
 		
 		contPan.setBounds(0, 80, frmWidth, this.frmHeight-100);
 		contPan.setLayout(null);
+		
 		this.add(contPan);	
 		
 		initHeader();

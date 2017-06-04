@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Iterator;
 
 import xupt.se.ttms.model.Studio;
+import xupt.se.ttms.service.SeatSrv;
 import xupt.se.ttms.service.StudioSrv;
 import xupt.se.ttms.view.tmpl.*;
 import xupt.se.ttms.view.seat.*;
@@ -289,7 +290,13 @@ public class StudioMgrUI extends MainUITmpl {
 		int confirm = JOptionPane.showConfirmDialog(null, "确认删除所选？", "删除", JOptionPane.YES_NO_OPTION);
 		if (confirm == JOptionPane.YES_OPTION) {
 			StudioSrv stuSrv = new StudioSrv();
+			SeatSrv seatSrv = new SeatSrv();
+			//删除座位
+			seatSrv.delete(stud.getID());
+			System.out.println("座位已删除");
+			//删除演出厅
 			stuSrv.delete(stud.getID());
+			System.out.println("演出厅已删除");
 			showTable();
 		}
 	}
