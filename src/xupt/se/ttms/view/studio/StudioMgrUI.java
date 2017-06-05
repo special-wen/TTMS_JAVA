@@ -320,7 +320,7 @@ public class StudioMgrUI extends MainUITmpl {
 	}
 
 	private void showTable() {
-		List<Studio> stuList = new StudioSrv().FetchAll();
+		List<Studio> stuList = new StudioSrv().Fetch("可用");
 		tms.showStudioList(stuList);
 	}
 	

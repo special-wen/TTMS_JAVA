@@ -92,35 +92,37 @@ public class SeatMgrUI extends MainUITmpl{
 			            lbael1.setText((i+","+j));
 					}
 					seat.add(lbael1);
-					seat.setLayout(new GridLayout(r, c));
+					//seat.setLayout(new GridLayout(r, c));
 					//添加座位监听
 					JLabel finalJLabel = lbael1;
 					lbael1.addMouseListener(new MouseAdapter() {
 	                    @Override
 	                    public void mouseClicked(MouseEvent mouseEvent) {
-	                        String[] sourceStrArray = finalJLabel.getText().split(",");
-	                        int m = Integer.parseInt(sourceStrArray[0]);//[String]待转换的字符串
-	                        int n = Integer.parseInt(sourceStrArray[1]);//[String]待转换的字符串
-	                        if (array[m][n] == 0){
-	                            int i = JOptionPane.showConfirmDialog(null, "购票", "是否选择该座位", JOptionPane.YES_NO_OPTION);
-	                            if(i == 0){
-	                                array[m][n] = 1;
-	                            }
-	                            seat.removeAll();
-	                            view_site();
-	                            seat.repaint();
-	                            seat.setLayout(new GridLayout(r, c));
-	                        }
-	                        else{
-	                            int i = JOptionPane.showConfirmDialog(null, "退票", "是否退票", JOptionPane.YES_NO_OPTION);
-	                            if(i == 0){
-	                                array[m][n] = 0;
-	                            }
-	                            seat.removeAll();
-	                            view_site();
-	                            seat.repaint();
-	                            seat.setLayout(new GridLayout(r, c));
-	                        }
+//	                    	JLabel ttt = (JLabel)mouseEvent.getSource();
+//	                    	ttt.setIcon(new ImageIcon("resource/image/broken.png"));
+//	                        String[] sourceStrArray = finalJLabel.getText().split(",");
+//	                        int m = Integer.parseInt(sourceStrArray[0]);//[String]待转换的字符串
+//	                        int n = Integer.parseInt(sourceStrArray[1]);//[String]待转换的字符串
+//	                        if (array[m][n] == 0){
+//	                            int i = JOptionPane.showConfirmDialog(null, "购票", "是否选择该座位", JOptionPane.YES_NO_OPTION);
+//	                            if(i == 0){
+//	                                array[m][n] = 1;
+//	                            }
+//	                            seat.removeAll();
+//	                            view_site();
+//	                            seat.repaint();
+//	                            seat.setLayout(new GridLayout(r, c));
+//	                        }
+//	                        else{
+//	                            int i = JOptionPane.showConfirmDialog(null, "退票", "是否退票", JOptionPane.YES_NO_OPTION);
+//	                            if(i == 0){
+//	                                array[m][n] = 0;
+//	                            }
+//	                            seat.removeAll();
+//	                            view_site();
+//	                            seat.repaint();
+//	                            seat.setLayout(new GridLayout(r, c));
+//	                        }
 	                    }
 	                });
 				}

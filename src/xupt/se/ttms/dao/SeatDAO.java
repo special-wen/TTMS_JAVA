@@ -51,8 +51,8 @@ public class SeatDAO implements iSeatDAO{
 		// TODO Auto-generated method stub
 		int rtn=0;		
 		try{
-			String sql = "delete from  seat ";
-			sql += " where studio_id = " + ID;
+			String sql = "update seat set seat_state = '不可用'"
+					+" where studio_id = " + ID+";";
 			System.out.println(sql);
 			DBUtil db = new DBUtil();
 			db.openConnection();

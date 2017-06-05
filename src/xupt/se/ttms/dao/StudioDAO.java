@@ -20,14 +20,14 @@ public class StudioDAO implements iStudioDAO {
 	@Override
 	public int insert(Studio stu) {
 		try {
-			String sql = "insert into studio(studio_name, studio_row_count, studio_col_count, studio_introduction )"
+			String sql = "insert into studio(studio_name, studio_row_count, studio_col_count, studio_introduction ,studio_state )"
 					+ " values('"
 					+ stu.getName()
 					+ "', "
 					+ stu.getRowCount()
 					+ ", " + stu.getColCount() 
 					+ ", '" + stu.getIntroduction()
-					
+					+ "' ,'可用"
 					+ "' )";
 			System.out.println(sql);
 			DBUtil db = new DBUtil();
@@ -72,8 +72,8 @@ public class StudioDAO implements iStudioDAO {
 	public int delete(int ID) {
 		int rtn=0;		
 		try{
-			String sql = "delete from  studio ";
-			sql += " where studio_id = " + ID;
+			String sql = "update studio set studio_state = '不可用'"
+					+" where studio_id = " + ID+";";
 			System.out.println(sql);
 			DBUtil db = new DBUtil();
 			db.openConnection();
@@ -91,10 +91,10 @@ public class StudioDAO implements iStudioDAO {
 		List<Studio> stuList = null;
 		stuList=new LinkedList<Studio>();
 		try {
-			String sql = "select studio_id, studio_name, studio_row_count, studio_col_count, studio_introduction from studio ";
+			String sql = "select studio_id, studio_name, studio_row_count, studio_col_count, studio_introduction,studio_state from studio ";
 			condt.trim();
 			if(!condt.isEmpty())
-				sql+= " where studio_name='" + condt+"'";
+				sql+= " where studio_state='" + "可用"+"'";
 			DBUtil db = new DBUtil();
 			if(!db.openConnection()){
 				System.out.print("fail to connect database");
