@@ -91,10 +91,10 @@ public class StudioDAO implements iStudioDAO {
 		List<Studio> stuList = null;
 		stuList=new LinkedList<Studio>();
 		try {
-			String sql = "select studio_id, studio_name, studio_row_count, studio_col_count, studio_introduction,studio_state from studio ";
+			String sql = "select studio_id, studio_name, studio_row_count, studio_col_count, studio_introduction,studio_state from studio where studio_state='可用' ";
 			condt.trim();
 			if(!condt.isEmpty())
-				sql+= " where studio_state='" + "可用"+"'";
+				sql+= " and studio_name = '" + condt +"'";
 			DBUtil db = new DBUtil();
 			if(!db.openConnection()){
 				System.out.print("fail to connect database");

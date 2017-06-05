@@ -28,6 +28,7 @@ public class StudioSelectUI extends PopUITmpl implements ActionListener{
 	
 	Object data[] = new Object[4];
 	protected void Select(String s){
+		System.out.println(s);
 		StudioDAO studiodao = new StudioDAO();
 		List<Studio> pList = null;
 		pList = new LinkedList<Studio>();
@@ -40,7 +41,7 @@ public class StudioSelectUI extends PopUITmpl implements ActionListener{
 			data[1] = stu.getRowCount();
 			data[2] = stu.getColCount();
 			data[3] = stu.getIntroduction();
-			System.out.println(data[0].toString()+","+data[1].toString()+","+data[3].toString());
+			System.out.println(data[0].toString()+","+data[1].toString()+","+data[2].toString()+","+data[3].toString());
 		}
 		lblname = new JLabel("演出厅名称:");
 		lblname.setBounds(60, 30,80, 30);
