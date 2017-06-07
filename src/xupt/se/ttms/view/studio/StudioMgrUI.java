@@ -246,6 +246,7 @@ public class StudioMgrUI extends MainUITmpl {
 	}
 	private void btnSeatCliked(){
 		Studio stud = tms.getStudio();
+		//System.out.println(stud.getID());
 		if (null == stud){
 			JOptionPane.showMessageDialog(null, "请选择要管理座位的演出厅");
 			return;

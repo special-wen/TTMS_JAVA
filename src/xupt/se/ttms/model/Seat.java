@@ -6,6 +6,7 @@ public class Seat{
 	private int studio_id = 0 ;
 	private int row=0;
 	private int column=0;
+	private String state = "可用";
 	public int getId() {
 		return id;
 	}
@@ -29,6 +30,12 @@ public class Seat{
 	}
 	public void setColumn(int column) {
 		this.column = column;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 }
 

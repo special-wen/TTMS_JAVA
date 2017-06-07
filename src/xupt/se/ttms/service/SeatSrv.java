@@ -5,6 +5,7 @@ import java.util.List;
 import xupt.se.ttms.idao.DAOFactorySeat;
 import xupt.se.ttms.idao.iSeatDAO;
 import xupt.se.ttms.model.Seat;
+import xupt.se.ttms.model.Studio;
 
 public class SeatSrv{
 	private iSeatDAO seatDAO=DAOFactorySeat.creatSeatDAO();
@@ -20,11 +21,11 @@ public class SeatSrv{
 		return seatDAO.delete(ID); 		
 	}
 	
-	public List<Seat> Fetch(String condt){
-		return seatDAO.select(condt);		
+	public List<Seat> Fetch(Seat stu){
+		return seatDAO.select(stu);		
 	}
 	
-	public List<Seat> FetchAll(){
-		return seatDAO.select("");		
-	}
+	/*public List<Seat> FetchAll(){
+		return seatDAO.select();		
+	}*/
 }

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import xupt.se.ttms.idao.iSeatDAO;
 import xupt.se.ttms.model.Seat;
+import xupt.se.ttms.model.Studio;
+import xupt.se.ttms.view.seat.*;
 import xupt.se.util.DBUtil;
 import xupt.se.ttms.view.studio.*;
 public class SeatDAO implements iSeatDAO{
@@ -43,7 +45,21 @@ public class SeatDAO implements iSeatDAO{
 	@Override
 	public int update(Seat stu) {
 		// TODO Auto-generated method stub
-		return 0;
+		int rtn=0;
+		try {
+			String sql = "update seat set "+"seat_state ='"+ stu.getState()+"'"
+					+"where studio_id = " + stu.getStudio_id()+" and seat_row= "
+							+ stu.getRow()+" and seat_column= "+stu.getColumn();
+			System.out.println(sql);
+			DBUtil db = new DBUtil();
+			db.openConnection();
+			rtn =db.execCommand(sql);
+			db.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rtn;
+
 	}
 
 	@Override
@@ -65,9 +81,57 @@ public class SeatDAO implements iSeatDAO{
 	}
 
 	@Override
-	public List<Seat> select(String condt) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Seat> select(Seat stu) {
+		
+		List<Seat> stuList = null;
+		stuList=new LinkedList<Seat>();
+		try {
+			String sql = "select seat_state from seat"
+						+" where studio_id = "
+						+stu.getStudio_id()+" and seat_row="
+						+stu.getRow()+ " and seat_column= "+stu.getColumn();
+			//condt.trim();
+			System.out.println(sql);
+			//if(!condt.isEmpty())
+			//sql+= " and studio_name = '" + condt +"'";
+			DBUtil db = new DBUtil();
+			if(!db.openConnection()){
+				System.out.print("fail to connect database");
+				return null;
+			}
+			ResultSet rst = db.execQuery(sql);
+			if (rst!=null) {
+				while(rst.next()){
+					Seat seat=new Seat();
+					seat.setState(rst.getString("seat_state"));
+					
+					stuList.add(seat);
+					System.out.println(seat.getState());
+				}
+			}
+			db.close(rst);
+			db.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			
+		}
+		
+		return stuList;
 	}
-	
 }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
