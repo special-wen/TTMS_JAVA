@@ -117,12 +117,15 @@ public class SeatMgrUI extends MainUITmpl{
         			System.out.println(i+","+j);
         			if(a.equals("座位坏掉")){
                 		array[i][j] = 1;
+                		System.out.println(array[i][j]);
                 	}
                 	if(a.equals("座位正常")){
                 		array[i][j] = 0;
+                		System.out.println(array[i][j]);
                 	}
                 	if(a.equals("没有座位")){
                 		array[i][j] = -1;
+                		System.out.println(array[i][j]);
                 	}
         		}
             	
