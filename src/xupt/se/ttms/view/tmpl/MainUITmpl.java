@@ -30,23 +30,22 @@ public class MainUITmpl extends JFrame  {
 	private int frmHeight=700;
 	protected ImagePanel headPan = new ImagePanel("resource/image/header.jpg");
 	protected JPanel contPan = new JPanel();
-	protected JPanel jPanel = new JPanel();
 	protected JLabel usrLabel = new JLabel();
 	protected JLabel usrName = new JLabel();
-	protected JButton btnModPwd = new JButton("修改密码");
-	protected JButton btnExit = new JButton("返回");	
+//	protected JButton btnModPwd = new JButton("修改密码");
+//	protected JButton btnExit = new JButton("返回");	
 
 	public MainUITmpl(){
 		this.setSize(frmWidth, frmHeight);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		this.setTitle("汉唐剧院票务管理系统");
+		this.setTitle("那一年剧院票务管理系统");
 		this.setLayout(null);
-		this.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent e){
-				onWindowClosing();
-			}
-		});		
+//		this.addWindowListener(new WindowAdapter(){
+//			public void windowClosing(WindowEvent e){
+//				onWindowClosing();
+//			}
+//		});		
 		
 		headPan.setBounds(0, 0, frmWidth, 80);
 		headPan.setLayout(null);
@@ -54,7 +53,6 @@ public class MainUITmpl extends JFrame  {
 		
 		contPan.setBounds(0, 80, frmWidth, this.frmHeight-100);
 		contPan.setLayout(null);
-		
 		this.add(contPan);	
 		
 		initHeader();
@@ -90,35 +88,36 @@ public class MainUITmpl extends JFrame  {
 	private void initHeader() {
 		try {
 
-			usrLabel.setBounds(frmWidth-160, 5, 80, 30);
+			usrLabel.setBounds(frmWidth-220, 25, 150, 30);
 			usrLabel.setText("当前用户：");
+			usrLabel.setFont(new java.awt.Font("宋体", 1, 20));
 			headPan.add(usrLabel);
 			
-			usrName.setBounds(frmWidth-80, 5, 80, 30);
-			usrName.setText("匿名");
-			usrName.setFont(new java.awt.Font("宋体", 1, 15));
+			usrName.setBounds(frmWidth-110, 25, 100, 30);
+			usrName.setText("");
+			usrName.setFont(new java.awt.Font("宋体", 1, 20));
 			usrName.setForeground(Color.blue);				
 			headPan.add(usrName);
 			
-			btnModPwd.setBounds(frmWidth-160, 40, 80, 30);
-			btnModPwd.setMargin(new Insets(0,0,0,0));
-			btnModPwd.setContentAreaFilled(false);
-			headPan.add(btnModPwd);
-			btnModPwd.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent Event) {
-					btnModUserClicked();
-				}
-			});
-			
-			btnExit.setBounds(frmWidth-80, 40, 80, 30);
-			btnExit.setContentAreaFilled(false);
-			btnExit.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent Event) {
-					btnExitClicked(Event);
-				}
-			});
-			
-			headPan.add(btnExit);	
+//			btnModPwd.setBounds(frmWidth-160, 40, 80, 30);
+//			btnModPwd.setMargin(new Insets(0,0,0,0));
+//			btnModPwd.setContentAreaFilled(false);
+//			headPan.add(btnModPwd);
+//			btnModPwd.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent Event) {
+//					btnModUserClicked();
+//				}
+//			});
+//			
+//			btnExit.setBounds(frmWidth-80, 40, 80, 30);
+//			btnExit.setContentAreaFilled(false);
+//			btnExit.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent Event) {
+//					btnExitClicked(Event);
+//				}
+//			});
+//			
+//			headPan.add(btnExit);	
 			
 			//Show the information of current user
 			showCurrentUser();
@@ -136,7 +135,7 @@ public class MainUITmpl extends JFrame  {
 		dlgUserMod.setVisible(true);
 	}	
 	
-	private void showCurrentUser(){
+	public void showCurrentUser(){
 		LoginedUser curUser=LoginedUser.getInstance();
 		String name=curUser.getEmpName();
 		if(null==name ||  name.isEmpty())

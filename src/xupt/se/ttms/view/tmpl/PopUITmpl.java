@@ -14,6 +14,7 @@ public class PopUITmpl extends JDialog {
 	private int frmWidth=800;
 	private int frmHeight=600;
 	public final ImagePanel headPan = new ImagePanel("resource/image/header_pop.jpg");
+//	public final ImagePanel headPan = new ImagePanel("resource/image/photo1.jpg");
 	public JPanel contPan = new JPanel();
 	public JLabel windowName = new JLabel();
 
@@ -22,11 +23,11 @@ public class PopUITmpl extends JDialog {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setLayout(null);
-		this.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent e){
-				onWindowClosing();
-			}
-		});		
+//		this.addWindowListener(new WindowAdapter(){
+//			public void windowClosing(WindowEvent e){
+//				onWindowClosing();
+//			}
+//		});		
 		
 		headPan.setBounds(0, 0, frmWidth, 60);
 		headPan.setLayout(null);
@@ -77,7 +78,7 @@ public class PopUITmpl extends JDialog {
 	}
 	
 
-	//Set the name of the popup window 
+	//Set the name of the pop up window 
 	public void setWindowName(String name){
 		windowName.setText(name);
 	}

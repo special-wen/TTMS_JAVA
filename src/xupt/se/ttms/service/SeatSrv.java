@@ -24,6 +24,11 @@ public class SeatSrv{
 	public List<Seat> Fetch(Seat stu){
 		return seatDAO.select(stu);		
 	}
+
+	public List<Seat> Fetchw(int id) {
+		// TODO Auto-generated method stub
+		return seatDAO.select(id);
+	}
 	
 	/*public List<Seat> FetchAll(){
 		return seatDAO.select();		

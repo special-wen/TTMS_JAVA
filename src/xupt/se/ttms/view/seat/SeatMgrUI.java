@@ -33,6 +33,7 @@ import xupt.se.ttms.dao.StudioDAO;
 import xupt.se.ttms.model.Seat;
 import xupt.se.ttms.dao.SeatDAO;
 import xupt.se.ttms.model.Studio;
+import xupt.se.ttms.service.LoginedUser;
 import xupt.se.ttms.service.SeatSrv;
 import xupt.se.ttms.view.tmpl.*;
 import xupt.se.ttms.view.studio.StudioAddUI;
@@ -49,7 +50,14 @@ public class SeatMgrUI extends MainUITmpl{
 	//array[][] = 0   座位正常
 	//array[][] = 1   座位去掉改为过道
 	/*private JPanel jPanel;*/
-	
+	public void showCurrentUser(){
+		LoginedUser curUser=LoginedUser.getInstance();
+		String name=curUser.getEmpName();
+		if(null==name ||  name.isEmpty())
+			usrName.setText("管理员");
+		else
+			usrName.setText(name);		
+	}
 	public SeatMgrUI(Studio studio){
 		//获取到演出厅的信息
 		id = studio.getID();
@@ -223,5 +231,4 @@ public class SeatMgrUI extends MainUITmpl{
 }
 
 		
-
 

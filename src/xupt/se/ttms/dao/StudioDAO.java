@@ -123,4 +123,75 @@ public class StudioDAO implements iStudioDAO {
 		
 		return stuList;
 	}
+	
+	@Override
+	public List<Studio> select(int id) {
+		List<Studio> stuList = null;
+		stuList=new LinkedList<Studio>();
+		try {
+			String sql = "select studio_id, studio_name, studio_row_count, studio_col_count, studio_introduction,studio_state from studio where studio_id="+id;
+			DBUtil db = new DBUtil();
+			if(!db.openConnection()){
+				System.out.print("fail to connect database");
+				return null;
+			}
+			ResultSet rst = db.execQuery(sql);
+			if (rst!=null) {
+				while(rst.next()){
+					Studio stu=new Studio();
+					stu.setID(rst.getInt("studio_id"));
+					stu.setName(rst.getString("studio_name"));
+					stu.setRowCount(rst.getInt("studio_row_count"));
+					stu.setColCount(rst.getInt("studio_col_count"));
+					stu.setIntroduction(rst.getString("studio_introduction"));
+					stuList.add(stu);
+				}
+			}
+			db.close(rst);
+			db.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			
+		}
+		
+		return stuList;
+	}
+	public List<Studio> select11(String condt) {
+		List<Studio> stuList = null;
+		stuList=new LinkedList<Studio>();
+		try {
+			String sql = "select studio_id, studio_name, studio_row_count, studio_col_count, studio_introduction,studio_state from studio where studio_state='可用' ";
+			condt.trim();
+			if(!condt.isEmpty())
+				sql+= " and studio_state = '" + condt +"'";
+			DBUtil db = new DBUtil();
+			if(!db.openConnection()){
+				System.out.print("fail to connect database");
+				return null;
+			}
+			ResultSet rst = db.execQuery(sql);
+			if (rst!=null) {
+				while(rst.next()){
+					Studio stu=new Studio();
+					stu.setID(rst.getInt("studio_id"));
+					stu.setName(rst.getString("studio_name"));
+					stu.setRowCount(rst.getInt("studio_row_count"));
+					stu.setColCount(rst.getInt("studio_col_count"));
+					stu.setIntroduction(rst.getString("studio_introduction"));
+					stuList.add(stu);
+				}
+			}
+			db.close(rst);
+			db.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			
+		}
+		
+		return stuList;
+	}
 }

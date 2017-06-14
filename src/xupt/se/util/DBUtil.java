@@ -1,12 +1,20 @@
-﻿package xupt.se.util;
+﻿/*  Version: 1.1
+ *  Date   : 2017.06.05 
+ *  Auther : Shu Xinfeng
+ *  Org.   : Dept. of Soft. Eng., Sch. of Comp. and Tech., XUPT  
+ */
+
+package xupt.se.util;
 
 import java.io.*;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties; 
+import java.util.Properties;
 
 public class DBUtil {
 	private final String dbConnFile = "resource/database/jdbc.properties";
@@ -80,18 +88,65 @@ public class DBUtil {
 			if(null==conn)
 				throw new Exception("Database not connected!");
 			
-			Statement stmt = conn.createStatement();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			
-			stmt.executeUpdate(insertSql, Statement.RETURN_GENERATED_KEYS);
-			rst = stmt.getGeneratedKeys();
+			stmt.executeUpdate(insertSql, Statement.RETURN_GENERATED_KEYS);//插入行并返回键值
+			rst = stmt.getGeneratedKeys();//获得INSERT插入后生成的主键ID。
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return rst;
 	}
+	
+	//以参数SQL模式插入新纪录，并获取标识列的值
+	public ResultSet getInsertObjectIDs(String insertSql, Object[] params) throws Exception {
+		ResultSet rst = null;
+		PreparedStatement pstmt = null ;
+		try {
+			if (null == conn)
+				throw new Exception("Database connected!");
+			pstmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);//获取自动增加的id号
+			
+			if(null != params){  
+	            for (int i = 0; i <params.length; i++) {  
+	            	pstmt.setObject(i + 1, params[i]);  
+	            }  
+	        }
+			pstmt.executeUpdate();
+			rst = pstmt.getGeneratedKeys();			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return rst;
+	}
+	
+	public ResultSet getUpdateObjectIDs(String updateSql, Object[] params) throws Exception {
+		ResultSet rst = null;
+		PreparedStatement pstmt = null ;
+		try {
+			if (null == conn)
+				throw new Exception("Database connected!");
+			pstmt = conn.prepareStatement(updateSql, Statement.RETURN_GENERATED_KEYS);//获取自动增加的id号
+			
+			if(null != params){  
+	            for (int i = 0; i <params.length; i++) {  
+	            	pstmt.setObject(i + 1, params[i]);  
+	            }  
+	        }
+			pstmt.execute();////更新
+			rst = pstmt.getGeneratedKeys();			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return rst;
+	}
 
 	// 插入、更新、删除
+	
 	public int execCommand(String sql) throws Exception{
 		int flag = 0;
 		try {
@@ -100,14 +155,38 @@ public class DBUtil {
 			
 			Statement stmt = conn.createStatement();
 			flag = stmt.executeUpdate(sql);
-			
 			stmt.close();			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
-
+	
+/*	// 存储过程调用
+	public void callStordProc(String sql, Object[] inParams, SqlParameter[] outParams) throws Exception {
+		CallableStatement  cst = null ;
+		try {
+			if (null == conn)
+				throw new Exception("Database not connected!");
+			cst = conn.prepareCall(sql);
+			
+			if(null != inParams){  
+	            for (int i = 0; i < inParams.length; i++) {  
+	            	cst.setObject(i + 1, inParams[i]);  
+	            }  
+	        }
+			
+			if (null!=outParams){
+				for (int i = 0; i < inParams.length; i++) {
+					cst.registerOutParameter(outParams[i].getName(), outParams[i].getType());  
+	            }  				
+			}
+			cst.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+*/
 	// 释放资源
 	public void close(ResultSet rst) throws Exception {
 		try {
@@ -119,6 +198,20 @@ public class DBUtil {
 		}
 	}
 	
+	// add by @author Wang
+	// 2016 5 29
+	public PreparedStatement execPrepared(String psql) throws Exception {
+		PreparedStatement pstmt = null ;
+		try {
+			if (null == conn)
+				throw new Exception("Database not connected!");
+			pstmt = conn.prepareStatement(psql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pstmt;
+	}
+
 
 	// 释放资源
 	public void close(Statement stmt) throws Exception {
@@ -136,5 +229,9 @@ public class DBUtil {
 			conn=null;
 		}
 	}
+	
 
+	public static void main(String[] args) {
+		
+	}
 }

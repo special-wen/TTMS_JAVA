@@ -120,6 +120,40 @@ public class SeatDAO implements iSeatDAO{
 		
 		return stuList;
 	}
+	
+	public List<Seat> select(int id) {
+		
+		List<Seat> stuList = null;
+		stuList=new LinkedList<Seat>();
+		try {
+			String sql = "select seat_id,seat_row,seat_column,seat_state from seat"
+						+" where studio_id ="+id;
+			System.out.println(sql);
+			DBUtil db = new DBUtil();
+			if(!db.openConnection()){
+				System.out.print("fail to connect database");
+				return null;
+			}
+			ResultSet rst = db.execQuery(sql);
+			if (rst!=null) {
+				while(rst.next()){
+					Seat seat=new Seat();
+					seat.setId(rst.getInt("seat_id"));
+					seat.setState(rst.getString("seat_state"));
+					stuList.add(seat);
+				}
+			}
+			db.close(rst);
+			db.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			
+		}
+		
+		return stuList;
+	}
 }
 		
 		
